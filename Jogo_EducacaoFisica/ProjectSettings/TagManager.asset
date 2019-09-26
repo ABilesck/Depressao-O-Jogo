@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Inimigo
+  - Manager
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Chao
+  - Inimigo
+  - Jogador
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Plano de fundo
+    uniqueID: 650763779
+    locked: 0
+  - name: Ambiente
+    uniqueID: 1579688427
+    locked: 0
+  - name: Inimigo
+    uniqueID: 838480735
+    locked: 0
+  - name: Jogador
+    uniqueID: 3651810949
+    locked: 0
