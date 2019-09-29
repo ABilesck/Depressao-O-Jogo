@@ -9,13 +9,14 @@ public class JogadorStatus : MonoBehaviour
     [SerializeField]
     public int VidaAtual;
     public Slider VidaSlider;
-    public int Lagrimas;
+    public int Poder;
     public Slider sldPoder;
     [Space(30)]
     public Transform checkpoint;
     //private bool morreu;
     [Space(30)]
     public GameObject TelaDeMorte;
+    public GameObject TelaDeInicio;
     public Player player;
     public bool PodeLevarDano;
     public float TempoParaDano;
@@ -24,6 +25,11 @@ public class JogadorStatus : MonoBehaviour
     [Space]
     [Header("Chefões")]
     public bool Cerebro;
+
+    private void Awake()
+    {
+        Time.timeScale = 0;
+    }
 
     private void Start()
     {
@@ -35,14 +41,14 @@ public class JogadorStatus : MonoBehaviour
     private void Update()
     {
         Morrer();
-        if(Lagrimas >= sldPoder.maxValue)
+        if(Poder >= sldPoder.maxValue)
         {
-            Lagrimas = (int)sldPoder.maxValue;
-            sldPoder.value = Lagrimas;
+            Poder = (int)sldPoder.maxValue;
+            sldPoder.value = Poder;
         }
         else
         {
-            sldPoder.value = Lagrimas;
+            sldPoder.value = Poder;
         }
     }
 
@@ -84,5 +90,36 @@ public class JogadorStatus : MonoBehaviour
     {
         if (!PodeLevarDano)
             PodeLevarDano = true;
+    }
+
+    public void NovoJogo()
+    {
+        TelaDeInicio.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void Salvar()
+    {
+        SistemaDeSalvar.SalvarJogador(this);
+    }
+    public void Carregar()
+    {
+        DadosJogador dados = SistemaDeSalvar.CarregarDados();
+
+        PontosDeVida = dados.VidaMaxima;
+        VidaSlider.maxValue = dados.VidaMaxima;
+        VidaAtual = dados.VidaAtual;
+        VidaSlider.value = dados.VidaAtual;
+        Poder = dados.Poder;
+        Cerebro = dados.Cerebro;
+
+        Vector3 Posicao;
+        Posicao.x = dados.Posicao[0];
+        Posicao.y = dados.Posicao[1];
+        Posicao.z = dados.Posicao[2];
+        transform.position = Posicao;
+
+        TelaDeInicio.SetActive(false);
+        Time.timeScale = 1;
     }
 }

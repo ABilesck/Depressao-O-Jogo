@@ -14,17 +14,17 @@ public class JogadorPoderes : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(Status.Lagrimas >= CustoDeCura && Status.VidaAtual < Status.PontosDeVida)
+            if(Status.Poder >= CustoDeCura && Status.VidaAtual < Status.PontosDeVida)
             {
                 Status.VidaAtual += MontanteDeCura;
                 Status.VidaSlider.value = Status.VidaAtual;
-                Status.Lagrimas -= CustoDeCura;
+                Status.Poder -= CustoDeCura;
             }
             else if(Status.VidaAtual >= Status.PontosDeVida)
             {
                 console.EscreverNoConsole("Sua vida ja esta cheia!");
 
-            }else if(Status.Lagrimas < CustoDeCura)
+            }else if(Status.Poder < CustoDeCura)
             {
                 console.EscreverNoConsole("Poder insuficiente!");
             }

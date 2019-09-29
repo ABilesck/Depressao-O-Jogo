@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuPausa : MonoBehaviour
 {
     public static bool JogoPausado;
     public GameObject MenuUI;
+    public JogadorStatus jogador;
 
     // Update is called once per frame
     void Update()
@@ -39,6 +41,8 @@ public class MenuPausa : MonoBehaviour
 
     public void SairDoJogo()
     {
-        Application.Quit();
+        Time.timeScale = 1;
+        jogador.Salvar();
+        SceneManager.LoadScene("MenuPrincipal");
     }
 }

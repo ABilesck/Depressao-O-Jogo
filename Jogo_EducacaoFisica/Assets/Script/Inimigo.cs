@@ -5,14 +5,12 @@ using UnityEngine.UI;
 
 public class Inimigo : MonoBehaviour
 {
-    public int PontosdeVida;
+    public AssetInimigo asset;
     private int VidaAtual;
     public Slider VidaUI;
     [Space]
-    public float Velocidade;
-    public float Distancia;
-    public int Lagrimas;
-    public Animator animator;
+    private float Distancia = 1.5f;
+    //public Animator animator;
     private bool MovendoParaDireita = true;
     
     [Space(25)]
@@ -28,8 +26,8 @@ public class Inimigo : MonoBehaviour
 
     private void Start()
     {
-        VidaAtual = PontosdeVida;
-        VidaUI.maxValue = PontosdeVida;
+        VidaAtual = asset.VidaMaxima;
+        VidaUI.maxValue = asset.VidaMaxima;
         VidaUI.value = VidaUI.maxValue;
     }
 
@@ -37,7 +35,7 @@ public class Inimigo : MonoBehaviour
     {
         Morrer();
 
-        transform.Translate(Vector2.right * Velocidade * Time.deltaTime);
+        transform.Translate(Vector2.right * asset.Velocidade * Time.deltaTime);
 
         RaycastHit2D groundInfo = Physics2D.Raycast(DetectorDeChao.position, Vector2.down, Distancia, Chao);
 
@@ -47,6 +45,7 @@ public class Inimigo : MonoBehaviour
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
                 MovendoParaDireita = false;
+                VidaUI.SetDirection(Slider.Direction.LeftToRight, false);
             }
             else
             {
@@ -88,7 +87,7 @@ public class Inimigo : MonoBehaviour
         if (VidaAtual <= 0)
         {
             JogadorStatus jogador = GameObject.FindGameObjectWithTag("Player").GetComponent<JogadorStatus>();
-            jogador.Lagrimas += Lagrimas;
+            jogador.Poder += asset.Poder;
             Instantiate(SangueDaMorte, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
             Debug.Log(gameObject.name + " Morreu");
@@ -96,14 +95,15 @@ public class Inimigo : MonoBehaviour
     }
     public void Reviver()
     {
-        VidaAtual = PontosdeVida;
+        VidaAtual = asset.VidaMaxima;
         VidaUI.value = VidaAtual;
         gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == Jogador)
+        Debug.Log("Hey");
+        if(collision.gameObject.layer == Jogador || collision.CompareTag("Player"))
         {
             collision.GetComponent<JogadorStatus>().LevarDano(Dano);
         }
