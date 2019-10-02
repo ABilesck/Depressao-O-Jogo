@@ -9,5 +9,6 @@ public class AssetInimigo : ScriptableObject
     public int VidaMaxima;
     public float Velocidade;
     public int Poder;
+    public int Dano;
 
 }

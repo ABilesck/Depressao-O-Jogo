@@ -19,42 +19,43 @@ public class CavaleiroOlharPararTrasBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(tempo <= 0)
+        if (tempo <= 0)
         {
-            AndandoParaDireita = animator.GetBool("AndandoParaDireita");
-            if (AndandoParaDireita)
-            {
-                animator.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-                //AndarParaDireita = false;
-                animator.SetBool("AndandoParaDireita", false);
-            }
-            else if (!AndandoParaDireita)
-            {
-                animator.gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
-                //AndarParaDireita = true;
-                animator.SetBool("AndandoParaDireita", true);
-            }
-
-            if(prxAcao == 0)
+            if (prxAcao == 0)
                 animator.SetTrigger("parar");
-            else if(prxAcao == 1)
-                if (animator.GetBool("TemChao"))
-                    animator.SetTrigger("andar");
-                else
-                    animator.SetTrigger("parar");
-
+            else if (prxAcao == 1)
+            {
+                animator.SetTrigger("andar");
+            }
+            else
+            {
+                prxAcao = 0;
+                animator.SetTrigger("parar");
+            }
         }
         else
         {
             tempo -= Time.deltaTime;
         }
-        
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        AndandoParaDireita = animator.GetBool("AndandoParaDireita");
+        if (AndandoParaDireita)
+        {
+            animator.gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
+            //AndarParaDireita = false;
+            animator.SetBool("AndandoParaDireita", false);
+        }
+        else if (!AndandoParaDireita)
+        {
+            animator.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+            //AndarParaDireita = true;
+            animator.SetBool("AndandoParaDireita", true);
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

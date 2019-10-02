@@ -13,27 +13,30 @@ public class IndicadorDeChao : MonoBehaviour
         anim.SetBool("TemChao", TemChao);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        TemChao = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        TemChao = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Chao"))
-        {
-            TemChao = true;
-        }
-        else
-        {
-            TemChao = false;
-        }
+        Debug.Log(collision.name);
+        TemChao = true;
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        TemChao = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Chao"))
-        {
-            TemChao = false;
-        }
-        else
-        {
-            TemChao = true;
-        }
+        TemChao = false;
     }
 }

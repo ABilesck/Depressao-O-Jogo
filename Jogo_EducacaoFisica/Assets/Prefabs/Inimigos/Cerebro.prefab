@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 7812104566911586529}
   m_Layer: 9
   m_Name: Cerebro
-  m_TagString: Inimigo
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

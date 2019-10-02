@@ -17,6 +17,7 @@ public class JogadorStatus : MonoBehaviour
     [Space(30)]
     public GameObject TelaDeMorte;
     public GameObject TelaDeInicio;
+    public GameObject TelaDeErro;
     public Player player;
     public bool PodeLevarDano;
     public float TempoParaDano;
@@ -25,6 +26,10 @@ public class JogadorStatus : MonoBehaviour
     [Space]
     [Header("Chefões")]
     public bool Cerebro;
+    [Space]
+    [Header("Cavaleiros")]
+    public int ContagemCavaleirosBrancos;
+    public int ContagemCavaleirosAzuis;
 
     private void Awake()
     {
@@ -105,21 +110,31 @@ public class JogadorStatus : MonoBehaviour
     public void Carregar()
     {
         DadosJogador dados = SistemaDeSalvar.CarregarDados();
+        if(dados != null)
+        {
+            PontosDeVida = dados.VidaMaxima;
+            VidaSlider.maxValue = dados.VidaMaxima;
+            VidaAtual = dados.VidaAtual;
+            VidaSlider.value = dados.VidaAtual;
+            Poder = dados.Poder;
+            Cerebro = dados.Cerebro;
 
-        PontosDeVida = dados.VidaMaxima;
-        VidaSlider.maxValue = dados.VidaMaxima;
-        VidaAtual = dados.VidaAtual;
-        VidaSlider.value = dados.VidaAtual;
-        Poder = dados.Poder;
-        Cerebro = dados.Cerebro;
+            Vector3 Posicao;
+            Posicao.x = dados.Posicao[0];
+            Posicao.y = dados.Posicao[1];
+            Posicao.z = dados.Posicao[2];
+            transform.position = Posicao;
 
-        Vector3 Posicao;
-        Posicao.x = dados.Posicao[0];
-        Posicao.y = dados.Posicao[1];
-        Posicao.z = dados.Posicao[2];
-        transform.position = Posicao;
-
-        TelaDeInicio.SetActive(false);
-        Time.timeScale = 1;
+            TelaDeInicio.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            TelaDeErro.SetActive(true);
+        }
+    }
+    public void Fechar()
+    {
+        TelaDeErro.SetActive(false);
     }
 }

@@ -7,7 +7,7 @@ public static class SistemaDeSalvar
     public static void SalvarJogador(JogadorStatus jogador)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string Path = Application.persistentDataPath + "/Player.fun";
+        string Path = Application.persistentDataPath + "/SaveFile.lfc";
         FileStream stream = new FileStream(Path, FileMode.Create);
 
         DadosJogador dados = new DadosJogador(jogador);
@@ -18,7 +18,7 @@ public static class SistemaDeSalvar
 
     public static DadosJogador CarregarDados()
     {
-        string Path = Application.persistentDataPath + "/Player.fun";
+        string Path = Application.persistentDataPath + "/SaveFile.lfc";
         if (File.Exists(Path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

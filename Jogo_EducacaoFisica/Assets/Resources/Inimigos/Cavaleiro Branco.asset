@@ -16,3 +16,4 @@ MonoBehaviour:
   VidaMaxima: 30
   Velocidade: 2
   Poder: 20
+  Dano: 3

@@ -37,6 +37,7 @@ public class MenuPrincipal : MonoBehaviour
     public void Sair()
     {
         Application.Quit();
+        Debug.Log("Saiu");
     }
 
 }

@@ -17,19 +17,14 @@ public class CavaleiroAndarBehavior : StateMachineBehaviour
         //DetectorDeChao = animator.transform.GetChild(0);
         tempo = Random.Range(TempoMin, TempoMax);
         asset = animator.gameObject.GetComponent<InimigoStatus>().asset;
-        TemChao = animator.GetBool("TemChao");
-        if (TemChao)
-            AndarParaDireita = (Random.Range(0, 2) == 0);
-        if (!TemChao)
-        {
-            Debug.Log("Nao tem chao");
-        }
+        //TemChao = animator.GetBool("TemChao");
+        //AndarParaDireita = animator.GetBool("AndandoParaDireita");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (tempo <= 0 && TemChao)
+        if (tempo <= 0)
         {
             animator.SetTrigger("parar");
         }
@@ -37,31 +32,31 @@ public class CavaleiroAndarBehavior : StateMachineBehaviour
         {
             tempo -= Time.deltaTime;
         }
-        animator.SetBool("AndandoParaDireita", AndarParaDireita);
+        //animator.SetBool("AndandoParaDireita", AndarParaDireita);
         animator.gameObject.transform.Translate(Vector2.right * asset.Velocidade * Time.deltaTime);
 
         //RaycastHit2D groundInfo = Physics2D.Raycast(DetectorDeChao.position, Vector2.down, 10, Chao);
         //TemChao = DetectorDeChao.GetComponent<IndicadorDeChao>().TemChao;
-        TemChao = animator.GetBool("TemChao");
+        //TemChao = animator.GetBool("TemChao");
 
-        if (!TemChao)
-        {
-            animator.SetTrigger("parar");
-        }
+        //if (!TemChao)
+        //{
+        //    animator.SetTrigger("parar");
+        //}
 
-        if (TemChao)
-        {
-            if (AndarParaDireita)
-            {
-                animator.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-                //AndarParaDireita = false;
-            }
-            else if (!AndarParaDireita)
-            {
-                animator.gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
-                //AndarParaDireita = true;
-            }
-        }
+        //if (TemChao)
+        //{
+        //    if (AndarParaDireita)
+        //    {
+        //        animator.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+        //        //AndarParaDireita = false;
+        //    }
+        //    else if (!AndarParaDireita)
+        //    {
+        //        animator.gameObject.transform.eulerAngles = new Vector3(0, -180, 0);
+        //        //AndarParaDireita = true;
+        //    }
+        //}
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

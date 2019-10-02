@@ -7,7 +7,8 @@ public class CavaleiroParadoBehavior : StateMachineBehaviour
     private float tempo;
     public float TempoMin;
     public float TempoMax;
-    private bool TemChao;
+    // bool TemChao;
+    private bool TemJogador;
     public int Acao;
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,18 +21,23 @@ public class CavaleiroParadoBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        TemChao = animator.GetBool("TemChao");
+        //TemChao = animator.GetBool("TemChao");
+        TemJogador = animator.GetBool("TemJogador");
         if (tempo <= 0)
         {
+            if (TemJogador)
+                animator.SetTrigger("atacar");
+
             switch (Acao)
             {
                 case 0:
-                    if (TemChao)
+                    if (!TemJogador)
                         animator.SetTrigger("andar");
                     Acao = Random.Range(0, 2);
                     break;
                 case 1:
-                    animator.SetTrigger("OlharParaTras");
+                    if(!TemJogador)
+                        animator.SetTrigger("OlharParaTras");
                     break;
             }
             

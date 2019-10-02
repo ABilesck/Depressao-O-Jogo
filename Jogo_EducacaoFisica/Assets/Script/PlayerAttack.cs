@@ -41,13 +41,19 @@ public class PlayerAttack : MonoBehaviour
 
         for (int i = 0; i < InimigosParaBater.Length; i++)
         {
-            if(InimigosParaBater[i].GetComponent<Inimigo>() != null)
+            if (InimigosParaBater[i].GetComponent<Inimigo>() != null)
+            {
                 InimigosParaBater[i].GetComponent<Inimigo>().LevarDano(Dano);
+            }
             else if (InimigosParaBater[i].GetComponent<MotorCerebro>() != null)
             {
                 InimigosParaBater[i].GetComponent<MotorCerebro>().LevarDano(Dano);
-            }
 
+            }
+            else if (InimigosParaBater[i].GetComponent<InimigoStatus>() != null)
+            {
+                InimigosParaBater[i].GetComponent<InimigoStatus>().LevarDano(Dano);
+            }
         }
     }
 
